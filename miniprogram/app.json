@@ -1,0 +1,13 @@
+{
+  "pages": [
+    "pages/index/index"
+  ],
+  "window": {
+    "backgroundColor": "#4fc3f7",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#4fc3f7",
+    "navigationBarTitleText": "记账小本",
+    "navigationBarTextStyle": "white"
+  },
+  "sitemapLocation": "sitemap.json"
+}
