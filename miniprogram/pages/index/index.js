@@ -1,120 +1,155 @@
-//index.js
-const app = getApp()
+let util = require("../../js/util.js");
 
 Page({
+
+
+  /**
+   * 页面的初始数据
+   */
   data: {
-    avatarUrl: './user-unlogin.png',
-    userInfo: {},
-    logged: false,
-    takeSession: false,
-    requestResult: ''
+    today: '',
+    countData: [],
+    expenditure : 0,
+    total : 0,
+    income : 0,
+    isOptional:false,
+    scroll_height : 0
   },
 
-  onLoad: function() {
-    if (!wx.cloud) {
-      wx.redirectTo({
-        url: '../chooseLib/chooseLib',
-      })
-      return
-    }
-
-    // 获取用户信息
-    wx.getSetting({
-      success: res => {
-        if (res.authSetting['scope.userInfo']) {
-          // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
-          wx.getUserInfo({
-            success: res => {
-              this.setData({
-                avatarUrl: res.userInfo.avatarUrl,
-                userInfo: res.userInfo
-              })
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    //检测是否有countList
+    wx.getStorageInfo({
+      success(res) {
+        if(!res.keys.length){
+          wx.setStorage({
+            key: "countList",
+            data: [],
+            success(res) {
+              console.log('新建成功');
+            },
+            fail(err){
+              conosle.log(err);
             }
           })
         }
       }
     })
-  },
-
-  onGetUserInfo: function(e) {
-    if (!this.logged && e.detail.userInfo) {
-      this.setData({
-        logged: true,
-        avatarUrl: e.detail.userInfo.avatarUrl,
-        userInfo: e.detail.userInfo
-      })
-    }
-  },
-
-  onGetOpenid: function() {
-    // 调用云函数
-    wx.cloud.callFunction({
-      name: 'login',
-      data: {},
-      success: res => {
-        console.log('[云函数] [login] user openid: ', res.result.openid)
-        app.globalData.openid = res.result.openid
-        wx.navigateTo({
-          url: '../userConsole/userConsole',
+    this.getHeight();
+    this.countMoney();
+    let now = new Date();
+    let today = util.timeFormat(now);
+    let that = this;
+    wx.getStorage({
+      key:"countList",
+      success(res){
+        that.setData({
+          countData: res.data,
         })
       },
-      fail: err => {
-        console.error('[云函数] [login] 调用失败', err)
-        wx.navigateTo({
-          url: '../deployFunctions/deployFunctions',
+      fail(err){
+        console.log(err);
+      },
+      complete(){
+        that.setData({
+          today: today
         })
       }
     })
+    
   },
 
-  // 上传图片
-  doUpload: function () {
-    // 选择图片
-    wx.chooseImage({
-      count: 1,
-      sizeType: ['compressed'],
-      sourceType: ['album', 'camera'],
-      success: function (res) {
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+    
+  },
 
-        wx.showLoading({
-          title: '上传中',
-        })
+  //显示操作按钮
+  showOptional : function () {
+    let isOpt = this.data.isOptional
+    this.setData({
+      isOptional: !isOpt
+    })
+  },
 
-        const filePath = res.tempFilePaths[0]
-        
-        // 上传图片
-        const cloudPath = 'my-image' + filePath.match(/\.[^.]+?$/)[0]
-        wx.cloud.uploadFile({
-          cloudPath,
-          filePath,
-          success: res => {
-            console.log('[上传文件] 成功：', res)
+  //添加收入
+  addIncome : function (){
+    this.setData({
+      isOptional: false
+    }),
+    wx.navigateTo({
+      url: '../income/income?id=1'
+    })
+  },
 
-            app.globalData.fileID = res.fileID
-            app.globalData.cloudPath = cloudPath
-            app.globalData.imagePath = filePath
-            
-            wx.navigateTo({
-              url: '../storageConsole/storageConsole'
+  //添加支出
+  addExpend: function () {
+    this.setData({
+      isOptional: false
+    }),
+    wx.navigateTo({
+      url: '../income/income?id=2'
+    })
+  },
+
+  //获取高度
+  getHeight: function (){
+    let windowHeight = wx.getSystemInfoSync().windowHeight // 屏幕的高度
+    let windowWidth = wx.getSystemInfoSync().windowWidth // 屏幕的宽度
+    this.setData({
+      scroll_height: windowHeight * 750 / windowWidth - 400 - 30
+    })
+  },
+
+  //计算金额
+  countMoney : function (){
+    let data = [],
+        income = 0,
+        total = 0,
+        expend = 0,
+        that = this
+    wx.getStorage({
+      key: "countList",
+      success(res) {
+          if(!res.data.length) return;
+          function sum (arr){
+            return arr.reduce(function (total, num) {
+              return total + num
             })
-          },
-          fail: e => {
-            console.error('[上传文件] 失败：', e)
-            wx.showToast({
-              icon: 'none',
-              title: '上传失败',
-            })
-          },
-          complete: () => {
-            wx.hideLoading()
           }
-        })
+          for(let item of res.data){
+            data.push(item.money);
+          } 
 
-      },
-      fail: e => {
-        console.error(e)
+          //计算收入
+          let countIncome = data.filter(function(mon){
+            return mon > 0
+          })
+          if (countIncome.length){
+            income = sum(countIncome)
+          }
+          //计算支出
+          let thisExpend = data.filter(function (mon) {
+            return mon < 0
+          })
+          if (thisExpend.length){
+            expend = sum(thisExpend)
+          }
+          //计算总额
+          total = sum(data)
+          that.setData({
+            income,
+            expenditure:expend,
+            total
+          })
       }
     })
-  },
+  }
+
+
 
 })

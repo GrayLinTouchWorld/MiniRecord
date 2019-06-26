@@ -1,0 +1,21 @@
+<!--pages/userInfo/userInfo.wxml-->
+<view class='userInfo'>
+  <picker class="weui-btn" mode="date" value="{{date}}" start="" end="" bindchange="bindDateChange">
+    <i-button type="info">{{time}}</i-button>
+  </picker>
+  <i-tabs current="{{ current }}" color="#4fc3f7" bindchange="handleChange">
+    <i-tab key="tab1" title="每日账单"></i-tab>
+    <i-tab key="tab2" title="每月总结"></i-tab>
+  </i-tabs>
+  <view wx:if="{{current == 'tab1'}}" class='daily-count'>
+    <view class="container">
+      <ec-canvas id="mychart1" canvas-id="mychart-bar" ec="{{ec1}}"></ec-canvas>
+    </view>
+  </view>
+  <view wx:if="{{current == 'tab2'}}" class='mensal-count'>
+    <view class="container">
+      <ec-canvas id="mychart-dom-bar" canvas-id="mychart-bar" ec="{{ec2}}"></ec-canvas>
+      <ec-canvas id="mychart-dom-bar" canvas-id="mychart-bar" ec="{{ec3}}"></ec-canvas>
+    </view>
+  </view>
+</view>

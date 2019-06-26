@@ -1,0 +1,23 @@
+/* pages/userInfo/userInfo.wxss */
+.weui-btn{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.container{
+  position: absolute;
+  top: 100rpx;
+  bottom: 100rpx;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+  
+ec-canvas{
+  width: 100%;  
+  height: 100%;
+}

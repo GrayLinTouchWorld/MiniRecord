@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "i-button": "../../dist/button/index",
+    "i-tabs": "../../dist/tabs/index",
+    "i-tab": "../../dist/tab/index",
+    "ec-canvas": "../../ec-canvas/ec-canvas"
+  }
+}
