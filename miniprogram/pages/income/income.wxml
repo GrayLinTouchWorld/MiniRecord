@@ -1,0 +1,32 @@
+<!--pages/income/income.wxml-->
+<view class='income'>
+  <view wx:if="{{status==1}}">
+    <i-panel title="收入金额">
+      <i-input value="{{ money }}" type="number"  maxlength="20" bindchange="handlemoney" placeholder="请输入收入金额" />
+    </i-panel>
+    <i-panel title="收入说明">
+      <i-input value="{{ infoment }}" type="text" maxlength="50" bindchange="handleInfo" placeholder="请输入收入说明" />
+    </i-panel>
+    <i-panel title="收入类型">
+      <i-radio-group current="{{current}}" bindchange="handleTypeChange">
+          <i-radio wx:for="{{incomeType}}" wx:key="{{item.id}}" value="{{item.name}}"></i-radio>
+      </i-radio-group>
+    </i-panel>
+  </view>
+  <view wx:if="{{status==2}}">
+    <i-panel title="支出金额">
+      <i-input value="{{ money }}" type="number"  maxlength="20" bindchange="handlemoney" placeholder="请输入支出金额" />
+    </i-panel>
+    <i-panel title="支出说明">
+      <i-input value="{{ infoment }}"  type="text" maxlength="50" bindchange="handleInfo"  placeholder="请输入支出说明" />
+    </i-panel>
+    <i-panel title="支出类型">
+      <i-radio-group current="{{current}}" bindchange="handleTypeChange">
+          <i-radio wx:for="{{expendType}}" wx:key="{{item.id}}" value="{{item.name}}"></i-radio>
+      </i-radio-group>
+    </i-panel>
+  </view>
+
+  <i-button bind:click="submitClick" type="info">保存</i-button>
+</view>
+

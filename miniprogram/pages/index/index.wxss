@@ -1,137 +1,73 @@
-/**index.wxss**/
-
-page {
-  background: #f6f6f6;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-}
-
-.userinfo, .uploader, .tunnel {
-  margin-top: 40rpx;
-  height: 140rpx;
-  width: 100%;
-  background: #fff;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-left: none;
-  border-right: none;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  transition: all 300ms ease;
-}
-
-.userinfo-avatar {
-  width: 100rpx;
-  height: 100rpx;
-  margin: 20rpx;
-  border-radius: 50%;
-  background-size: cover;
-  background-color: white;
-}
-
-.userinfo-avatar:after {
-  border: none;
-}
-
-.userinfo-nickname {
-  font-size: 32rpx;
-  color: #007aff;
-  background-color: white;
-  background-size: cover;
-}
-
-.userinfo-nickname::after {
-  border: none;
-}
-
-.uploader, .tunnel {
-  height: auto;
-  padding: 0 0 0 40rpx;
-  flex-direction: column;
-  align-items: flex-start;
-  box-sizing: border-box;
-}
-
-.uploader-text, .tunnel-text {
-  width: 100%;
-  line-height: 52px;
-  font-size: 34rpx;
-  color: #007aff;
-}
-
-.uploader-container {
+.head-back{
   width: 100%;
   height: 400rpx;
-  padding: 20rpx 20rpx 20rpx 0;
-  display: flex;
-  align-content: center;
-  justify-content: center;
-  box-sizing: border-box;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  background: #4fc3f7;
+  z-index: 2;
 }
 
-.uploader-image {
+.head-date{
+  margin-top: 20rpx;
   width: 100%;
-  height: 360rpx;
+  height: 100rpx;
+  line-height: 100rpx;
+  text-align: center;
+  font-size: 30px;
+  color: #ffd54f;
 }
 
-.tunnel {
-  padding: 0 0 0 40rpx;
-}
-
-.tunnel-text {
-  position: relative;
-  color: #222;
+.head-count{
   display: flex;
   flex-direction: row;
-  align-content: center;
-  justify-content: space-between;
-  box-sizing: border-box;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-.tunnel-text:first-child {
-  border-top: none;
-}
-
-.tunnel-switch {
-  position: absolute;
-  right: 20rpx;
-  top: -2rpx;
-}
-
-.disable {
-  color: #888;
-}
-
-.service {
-  position: fixed;
-  right: 40rpx;
-  bottom: 40rpx;
-  width: 140rpx;
-  height: 140rpx;
-  border-radius: 50%;
-  background: linear-gradient(#007aff, #0063ce);
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
-  display: flex;
-  align-content: center;
   justify-content: center;
-  transition: all 300ms ease;
+  margin-top: 40rpx;
+  color: #ffd54f;
 }
 
-.service-button {
-  position: absolute;
-  top: 40rpx;
+.head{
+  width: 30%;
+  text-align: center;
+  height: 200rpx;
+  display: flex;
+  flex-direction: column;
 }
 
-.service:active {
-  box-shadow: none;
+.head-title{
+  width: 100%;
+  font-size: 18px;
+  height: 100rpx;
+  line-height: 100rpx;
 }
 
-.request-text {
-  padding: 20rpx 0;
-  font-size: 24rpx;
-  line-height: 36rpx;
-  word-break: break-all;
+.head-content{
+  font-size: 24px;
+  height: 100rpx;
+  line-height: 100rpx;
+  font-weight: 500;
+}
+
+.option{
+  width: 100rpx;
+  height: 100rpx;
+}
+
+.option-add{
+  position: fixed;
+  right: 50rpx;
+  bottom: 100rpx;
+}
+
+.option-income{
+  position: fixed;
+  right: 50rpx;
+  bottom: 220rpx;
+}
+
+.option-expend{
+  position: fixed;
+  right: 170rpx;
+  bottom: 100rpx;
+}
+
+.count-list{
+  width: 100%;
 }

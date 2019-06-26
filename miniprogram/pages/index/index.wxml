@@ -1,52 +1,32 @@
 <!--index.wxml-->
 <view class="container">
-
-  <!-- 用户 openid -->
-  <view class="userinfo">
-    <button 
-      open-type="getUserInfo" 
-      bindgetuserinfo="onGetUserInfo"
-      class="userinfo-avatar"
-      style="background-image: url({{avatarUrl}})"
-    ></button>
-    <view>
-      <button class="userinfo-nickname" bindtap="onGetOpenid">点击获取 openid</button>
+  <view class="head-back">
+    <view class='head-date'>
+      <text >{{today}}</text>
     </view>
+    <view class='head-count'>
+      <view class='head head-expend'>
+        <text class='head-title'>今日支出</text>
+        <text class='head-content'>{{expenditure}}</text>
+      </view>
+      <view class='head head-total'>
+        <text class='head-title'>总计</text>
+        <text class='head-content'>{{total}}</text>
+      </view>
+      <view class='head head-income'>
+        <text class='head-title'>今日收入</text>
+        <text class='head-content'>{{income}}</text>
+      </view>
+    </view>   
   </view>
-
-
-  <!-- 上传图片 -->
-  <view class="uploader">
-    <view class="uploader-text" bindtap="doUpload">
-      <text>上传图片</text>
-    </view>
-    <view class="uploader-container" wx:if="{{imgUrl}}">
-      <image class="uploader-image" src="{{imgUrl}}" mode="aspectFit" bindtap="previewImg"></image>
-    </view>
+  <view class='count-list'>
+    <scroll-view class="scroll-view_H" scroll-y="true" style="height:{{scroll_height}}rpx">
+      <i-cell-group i-class='item-list' wx:for="{{countData}}" wx:key="{{index}}">
+        <i-cell i-class='item' title="{{item.info}}" label="{{item.time}}" value="{{item.money}}￥" class='count-money'></i-cell>
+      </i-cell-group>
+    </scroll-view>
   </view>
-
-
-  <!-- 操作数据库 -->
-  <view class="uploader">
-    <navigator url="../databaseGuide/databaseGuide" open-type="navigate" class="uploader-text">
-      <text>前端操作数据库</text>
-    </navigator>
-  </view>
-
-  <!-- 新建云函数 -->
-  <view class="uploader">
-    <navigator url="../addFunction/addFunction" open-type="navigate" class="uploader-text">
-      <text>快速新建云函数</text>
-    </navigator>
-  </view>
-
-  <!-- 云调用 -->
-  <view class="uploader">
-    <navigator url="../openapi/openapi" open-type="navigate" class="uploader-text">
-      <text>云调用</text>
-    </navigator>
-    <i-button type="primary" bind:click="handleClick">这是一个按钮</i-button>
-  </view>
-
-
+    <image bindtap='showOptional' class='option option-add' src='../../images/add.png'></image>
+    <image wx:if="{{isOptional}}" bindtap='addIncome' class='option option-income' src='../../images/income.png'></image>
+    <image wx:if="{{isOptional}}" bindtap='addExpend' class='option option-expend' src='../../images/expend.png'></image>
 </view>

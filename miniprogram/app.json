@@ -1,13 +1,33 @@
 {
   "pages": [
-    "pages/index/index"
+    "pages/index/index",
+    "pages/userInfo/userInfo",
+    "pages/income/income"
   ],
   "window": {
-    "backgroundColor": "#4fc3f7",
+    "backgroundColor": "#4FC3F7",
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#4fc3f7",
+    "navigationBarBackgroundColor": "#4FC3F7",
     "navigationBarTitleText": "记账小本",
     "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "color":"#8A8A8A",
+    "selectedColor":"#4FC3F7",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "记账",
+        "iconPath":"./images/record.png",
+        "selectedIconPath":"./images/record-active.png" 
+      },
+      {
+        "pagePath": "pages/userInfo/userInfo",
+        "text": "我的账单", 
+        "iconPath": "./images/my.png",
+        "selectedIconPath": "./images/my-active.png"
+      }
+    ]
   },
   "sitemapLocation": "sitemap.json"
 }
